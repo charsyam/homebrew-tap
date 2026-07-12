@@ -1,8 +1,8 @@
 class Soltop < Formula
   desc "Apple Silicon GPU/CPU/power monitor (no sudo, no powermetrics)"
   homepage "https://github.com/charsyam/soltop"
-  url "https://github.com/charsyam/soltop/archive/refs/tags/v0.5.2.tar.gz"
-  sha256 "887ff9b7cfc736692d5f3a4695c9f0b24c90703a55c59999b73e80b2c69a618c"
+  url "https://github.com/charsyam/soltop/archive/refs/tags/v0.5.3.tar.gz"
+  sha256 "e2b406044ccb56ba4b4d3345a8752bf4ef68c7c2808303d52b51c9c25dbfff9c"
   license "MIT"
   head "https://github.com/charsyam/soltop.git", branch: "main"
 
