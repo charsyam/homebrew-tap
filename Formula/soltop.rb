@@ -1,8 +1,8 @@
 class Soltop < Formula
   desc "Apple Silicon GPU/CPU/power monitor (no sudo, no powermetrics)"
   homepage "https://github.com/charsyam/soltop"
-  url "https://github.com/charsyam/soltop/archive/refs/tags/v0.8.0.tar.gz"
-  sha256 "2bc6890597ea8ac77b96b5a1ff83dde110113e999405c718557362e739785d13"
+  url "https://github.com/charsyam/soltop/archive/refs/tags/v0.9.0.tar.gz"
+  sha256 "189767b5c73921c3ebf654b92ee0ac24d71d5dc17fb459fa3ae6d9eb4883cd42"
   license "MIT"
   head "https://github.com/charsyam/soltop.git", branch: "main"
 
@@ -10,10 +10,18 @@ class Soltop < Formula
   depends_on :macos
 
   def install
-    bin.install "soltop.py" => "soltop"
+    # soltop is a package, but it ships as ONE file: zipapp (stdlib since 3.5)
+    # packs src/ into a single executable. It stores source rather than
+    # bytecode, so the Python that builds it need not be the one that runs it.
+    system "python3", "-m", "zipapp", "src",
+           "-o", "soltop", "-p", "/usr/bin/env python3", "-c"
+    chmod 0755, "soltop"
+    bin.install "soltop"
   end
 
   test do
     assert_match "soltop", shell_output("#{bin}/soltop --version")
+    # The dashboard needs real IOReport channels, which a build sandbox may not
+    # have; --version is the one thing that must work everywhere.
   end
 end
